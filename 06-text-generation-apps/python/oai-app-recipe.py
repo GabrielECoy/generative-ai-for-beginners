@@ -7,7 +7,7 @@ load_dotenv()
 
 # configure Azure OpenAI service client 
 client = OpenAI()
-deployment = "gpt-3.5-turbo"
+deployment = "gpt-3.5-turbo" # "gpt-5.5-pro" 
 
 no_recipes = input("No of recipes (for example, 5: ")
 
