@@ -13,7 +13,7 @@ client = OpenAI()
 try:
     # Create an image by using the image generation API
     generation_response = client.images.generate(
-        model="dall-e-3",
+        model="dall-e-3", # "gpt-image-1" does not support url response
         prompt='Bunny on horse, holding a lollipop, on a foggy meadow where it grows daffodils',    # Enter your prompt text here
         size='1024x1024',
         n=1
@@ -29,7 +29,7 @@ try:
     image_path = os.path.join(image_dir, 'generated-image.png')
 
     # Retrieve the generated image
-    print(generation_response)
+    print(str(generation_response)[:40])
 
     image_url = generation_response.data[0].url # extract image URL from response
     generated_image = requests.get(image_url).content  # download the image
@@ -41,12 +41,12 @@ try:
     image.show()
 
 # catch exceptions
-except openai.InvalidRequestError as err:
+except OpenAI.InvalidRequestError as err:
     print(err)
 
 # ---creating variation below---
 
-
+# failed with 502 or openai.APIConnectionError: Connection error.
 response = client.images.create_variation(
   image=open(image_path, "rb"),
   n=1,
