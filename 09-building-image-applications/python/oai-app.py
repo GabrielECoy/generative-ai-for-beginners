@@ -33,6 +33,11 @@ try:
 
     image_url = generation_response.data[0].url # extract image URL from response
     generated_image = requests.get(image_url).content  # download the image
+    # gpt-image-1 returns base64-encoded image data (b64_json) by default rather than a URL, so there's no need to make a separate requests.get() call to download it.
+    # Decoding: You decode the base64 string with base64.b64decode() to get the raw image bytes before writing to disk.
+    # import base64
+    # image_data = generation_response.data[0].b64_json  # extract base64 image data
+    # generated_image = base64.b64decode(image_data)
     with open(image_path, "wb") as image_file:
         image_file.write(generated_image)
 
